@@ -36,4 +36,34 @@ class WhenTests: XCTestCase {
         self.waitForExpectationsWithTimeout(0.1, handler: nil)
     }
     
+    func testThrowingFutures() {
+        enum TestError : ErrorType {
+            case Henk, Fred, Sap, Saus
+        }
+        
+        func testFunc() -> ThrowingFuture<Void> {
+            return ThrowingFuture<Void> {
+                throw TestError.Sap
+            }
+        }
+        
+        let errorExpectation = expectationWithDescription("The TestError is passed to the closure correctly")
+        
+        testFunc().then{
+            XCTFail("The closure passed to then() should not be executed when an error is thrown")
+        }.onError{ e in
+            guard case TestError.Sap = e else {
+                XCTFail()
+                return
+            }
+            
+            errorExpectation.fulfill()
+        }
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+        
+        // This should crash:
+//        testFunc().then { XCTFail() }
+    }
+    
 }

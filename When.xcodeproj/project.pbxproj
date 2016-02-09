@@ -29,6 +29,7 @@
 		F2B9F6D01C69EB70004383A9 /* WhenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhenTests.swift; sourceTree = "<group>"; };
 		F2B9F6D21C69EB70004383A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2B9F6DB1C69EB81004383A9 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
+		F2B9F6DD1C6A1B53004383A9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +54,7 @@
 		F2B9F6B71C69EB70004383A9 = {
 			isa = PBXGroup;
 			children = (
+				F2B9F6DD1C6A1B53004383A9 /* README.md */,
 				F2B9F6C31C69EB70004383A9 /* When */,
 				F2B9F6CF1C69EB70004383A9 /* WhenTests */,
 				F2B9F6C21C69EB70004383A9 /* Products */,

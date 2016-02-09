@@ -14,10 +14,10 @@ private var futureManipulationQueue = dispatch_queue_create("planteam.when.futur
 public class Future<Wrapped> {
     typealias FutureCallback = (Wrapped) -> ()
     
-    private var value: Wrapped?
-    private var closures = [FutureCallback]()
+    private final var value: Wrapped?
+    private final var closures = [FutureCallback]()
     
-    public func complete(value: Wrapped) {
+    private final func complete(value: Wrapped) {
         dispatch_sync(futureManipulationQueue) { self.value = value }
         for c in closures {
             c(value)
@@ -29,7 +29,7 @@ public class Future<Wrapped> {
         return value!
     }
     
-    public func then(closure: (Wrapped) -> ()) {
+    public final func then(closure: (Wrapped) -> ()) -> Self {
         dispatch_async(futureManipulationQueue) {
             if let value = self.value {
                 closure(value)
@@ -37,6 +37,7 @@ public class Future<Wrapped> {
                 self.closures.append(closure)
             }
         }
+        return self
     }
     
     public init(execute closure: () -> (Wrapped)) {
@@ -44,9 +45,81 @@ public class Future<Wrapped> {
             self.complete(closure())
         }
     }
+    
+    // needed because the compiler gets mad when we try to use the trailing closure syntax if we only have an initializer accepting @autoclosure(escaping)
+    public convenience init(@autoclosure(escaping) execute closure: () -> (Wrapped)) {
+        self.init(execute: closure)
+    }
+    
+    private init() {}
+}
+
+public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
+    typealias ErrorCallback = (ErrorType) -> ()
+    
+    private var error: ErrorType?
+    private var errorClosures = [ErrorCallback]()
+    
+    public override func await() -> Wrapped {
+        return try! safeAwait()
+    }
+    
+    public func safeAwait() throws -> Wrapped {
+        repeat {
+            if let value = value {
+                return value
+            } else if let error = error {
+                throw error
+            }
+            usleep(1)
+        } while true
+    }
+    
+    public init(executeThrowing closure: () throws -> (Wrapped)) {
+        super.init()
+        dispatch_async(backgroundExecutionQueue) {
+            do {
+                self.complete(try closure())
+            } catch let e {
+                self.handleError(e)
+            }
+        }
+    }
+    
+    public convenience init(@autoclosure(escaping) executeThrowing closure: () throws -> (Wrapped)) {
+        self.init(executeThrowing: closure)
+    }
+    
+    public func onError(handler: (ErrorType) -> ()) -> Self {
+        dispatch_async(futureManipulationQueue) {
+            if let error = self.error {
+                handler(error)
+            } else {
+                self.errorClosures.append(handler)
+            }
+        }
+        return self
+    }
+    
+    private func handleError(error: ErrorType) {
+        dispatch_sync(futureManipulationQueue) { self.error = error }
+        
+        guard errorClosures.count > 0 else {
+            try! { throw error }()
+            return
+        }
+        
+        for c in errorClosures {
+            c(error)
+        }
+    }
 }
 
 prefix operator !> {}
 prefix func !><Wrapped> (input: Future<Wrapped>) -> Wrapped {
     return input.await()
+}
+
+prefix func !><Wrapped> (input: ThrowingFuture<Wrapped>) throws -> Wrapped {
+    return try input.safeAwait()
 }
