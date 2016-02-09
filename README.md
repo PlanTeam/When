@@ -71,6 +71,20 @@ func fetchLotsOfData() -> ThrowingFuture<[UInt8]> {
 }
 ```
 
+### `Completer`
+
+When you need to hand out work to another function that uses a callback, you can use a `Completer`.
+
+```swift
+func doSomething() -> Future<Void> {
+	let completer = Completer<Void>()
+	handOutWork(completer)
+	return completer.future
+}
+```
+
+The error-supporting counterpart of `Completer` is `ThrowingCompleter`. 
+
 ## Installing
 
 Use the Swift Package Manager, Carthage or git submodules.

@@ -11,8 +11,35 @@ import Foundation
 private var backgroundExecutionQueue = dispatch_queue_create("planteam.when.backgroundexecution", DISPATCH_QUEUE_CONCURRENT)
 private var futureManipulationQueue = dispatch_queue_create("planteam.when.futuremanipulation", DISPATCH_QUEUE_SERIAL)
 
+/**
+ Use a future for doing work asynchronously and returning a result.
+ 
+ A future can represent a value. Receivers of a Future can register callbacks that handle the value
+ a future represents.
+ 
+ ```swift
+ func intensiveFunction() -> Future<String> {
+    return Future {
+        // Intensive computation
+        return "Result"
+    }
+ }
+ 
+ expensiveFunction().then { result in
+    print("The result: \(result)")
+ }
+ ```
+ 
+ If you want to wait until the future completes, you can use the `!>` prefix operator:
+ 
+ ```swift
+ let value = !>expensiveFunction()
+ ```
+ 
+ If you need error handling, use a `ThrowingFuture`.
+*/
 public class Future<Wrapped> {
-    typealias FutureCallback = (Wrapped) -> ()
+    private typealias FutureCallback = (Wrapped) -> ()
     
     private final var value: Wrapped?
     private final var closures = [FutureCallback]()
@@ -24,11 +51,12 @@ public class Future<Wrapped> {
         }
     }
     
-    public func await() -> Wrapped {
+    internal func await() -> Wrapped {
         while value == nil { usleep(1) }
         return value!
     }
     
+    /// Execute a given closure after the Future has copmleted.
     public final func then(closure: (Wrapped) -> ()) -> Self {
         dispatch_async(futureManipulationQueue) {
             if let value = self.value {
@@ -40,6 +68,7 @@ public class Future<Wrapped> {
         return self
     }
     
+    /// Initialize a new future and execute the given closure. The closure is executed asynchronously on a special dispatch queue.
     public init(execute closure: () -> (Wrapped)) {
         dispatch_async(backgroundExecutionQueue) {
             self.complete(closure())
@@ -49,17 +78,36 @@ public class Future<Wrapped> {
     internal init() {}
 }
 
+/**
+ A `Future` with support for error handling.
+ 
+ ```swift
+ expensiveComputation().then {
+    print("result: \($0)")
+ }.onError{
+    print("error: \($0)")
+ }
+ ```
+ 
+ The `!>` operator also throws when used with a ThrowingFuture.
+ 
+ ```swift
+ let result = try !>expensiveComputation()
+ ```
+ 
+ Not handling errors coming from a ThrowingFuture will result in an error.
+*/
 public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
     typealias ErrorCallback = (ErrorType) -> ()
     
     private var error: ErrorType?
     private var errorClosures = [ErrorCallback]()
     
-    public override func await() -> Wrapped {
+    internal override func await() -> Wrapped {
         return try! safeAwait()
     }
     
-    public func safeAwait() throws -> Wrapped {
+    internal func safeAwait() throws -> Wrapped {
         errorClosures.append({_ in})
         
         repeat {
@@ -72,6 +120,7 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
         } while true
     }
     
+    /// Initialize a new future and execute the given closure. The closure is executed asynchronously on a special dispatch queue.
     public init(executeThrowing closure: () throws -> (Wrapped)) {
         super.init()
         dispatch_async(backgroundExecutionQueue) {
@@ -83,6 +132,7 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
         }
     }
     
+    /// If an error is thrown for this Future, handle it trough the given handler.
     public func onError(handler: (ErrorType) -> ()) -> Self {
         dispatch_async(futureManipulationQueue) {
             if let error = self.error {
