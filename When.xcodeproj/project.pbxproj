@@ -26,14 +26,15 @@
 
 /* Begin PBXFileReference section */
 		F2B9F6C11C69EB70004383A9 /* When.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = When.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2B9F6C61C69EB70004383A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2B9F6CB1C69EB70004383A9 /* WhenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2B9F6D01C69EB70004383A9 /* WhenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhenTests.swift; sourceTree = "<group>"; };
-		F2B9F6D21C69EB70004383A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2B9F6DB1C69EB81004383A9 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		F2B9F6DD1C6A1B53004383A9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F2B9F6DE1C6A2AF5004383A9 /* Autoclosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autoclosure.swift; sourceTree = "<group>"; };
 		F2B9F6E01C6A30AF004383A9 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		F2B9F6E31C6A32C2004383A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Xcode/Info.plist; sourceTree = "<group>"; };
+		F2B9F6E41C6A32C2004383A9 /* TestInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TestInfo.plist; path = Xcode/TestInfo.plist; sourceTree = "<group>"; };
+		F2B9F6E71C6A3355004383A9 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +59,11 @@
 		F2B9F6B71C69EB70004383A9 = {
 			isa = PBXGroup;
 			children = (
+				F2B9F6E71C6A3355004383A9 /* Package.swift */,
 				F2B9F6DD1C6A1B53004383A9 /* README.md */,
-				F2B9F6C31C69EB70004383A9 /* When */,
-				F2B9F6CF1C69EB70004383A9 /* WhenTests */,
+				F2B9F6C31C69EB70004383A9 /* Sources */,
+				F2B9F6CF1C69EB70004383A9 /* Tests */,
+				F2B9F6E21C6A32B1004383A9 /* Crap */,
 				F2B9F6C21C69EB70004383A9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,24 +77,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F2B9F6C31C69EB70004383A9 /* When */ = {
+		F2B9F6C31C69EB70004383A9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				F2B9F6C61C69EB70004383A9 /* Info.plist */,
 				F2B9F6DB1C69EB81004383A9 /* Future.swift */,
 				F2B9F6DE1C6A2AF5004383A9 /* Autoclosure.swift */,
 				F2B9F6E01C6A30AF004383A9 /* Operators.swift */,
 			);
-			path = When;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		F2B9F6CF1C69EB70004383A9 /* WhenTests */ = {
+		F2B9F6CF1C69EB70004383A9 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				F2B9F6D01C69EB70004383A9 /* WhenTests.swift */,
-				F2B9F6D21C69EB70004383A9 /* Info.plist */,
 			);
-			path = WhenTests;
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		F2B9F6E21C6A32B1004383A9 /* Crap */ = {
+			isa = PBXGroup;
+			children = (
+				F2B9F6E31C6A32C2004383A9 /* Info.plist */,
+				F2B9F6E41C6A32C2004383A9 /* TestInfo.plist */,
+			);
+			name = Crap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,7 +332,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = When/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Xcode/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PlanTeam.When;
@@ -342,7 +352,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = When/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Xcode/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PlanTeam.When;
@@ -355,7 +365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = WhenTests/Info.plist;
+				INFOPLIST_FILE = Xcode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PlanTeam.WhenTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -366,7 +376,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = WhenTests/Info.plist;
+				INFOPLIST_FILE = Xcode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PlanTeam.WhenTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

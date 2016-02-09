@@ -1,6 +1,6 @@
 # When
 
-A small, lightweight library that adds something like async/await. When uses Grand Central Dispatch.
+A small, lightweight library that adds something like async/await to Swift. When uses Grand Central Dispatch.
 
 ## Usage
 
@@ -68,3 +68,7 @@ func fetchLotsOfData() -> ThrowingFuture<[UInt8]> {
 	}
 }
 ```
+
+## Installing
+
+Use the Swift Package Manager, Carthage or git submodules.
