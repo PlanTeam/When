@@ -14,7 +14,7 @@
     <a title="Future Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (0% documented)</p>
+        <p><a href="../index.html"> Docs</a> (86% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,7 +31,13 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Classes/Completer.html">Completer</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Future.html">Future</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ThrowingCompleter.html">ThrowingCompleter</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ThrowingFuture.html">ThrowingFuture</a>
@@ -42,10 +48,10 @@
             <a href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:ZF4Whenop2ngurFGCS_6Futureq__q_">!&gt;(_:)</a>
+                <a href="../Functions/!&gt;(_:).html">!&gt;(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:ZF4Whenop2ngurFzGCS_14ThrowingFutureq__q_">!&gt;(_:)</a>
+                <a href="../Functions/!&gt;(_:).html">!&gt;(_:)</a>
               </li>
             </ul>
           </li>
@@ -55,31 +61,40 @@
         <section>
           <section class="section">
             <h1>Future</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">Wrapped</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+              </div>
+            <p>Use a future for doing work asynchronously and returning a result.</p>
+
+<p>A future can represent a value. Receivers of a Future can register callbacks that handle the value
+a future represents.</p>
+
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">intensiveFunction</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="kt">Future</span> <span class="p">{</span>
+       <span class="c1">// Intensive computation</span>
+       <span class="k">return</span> <span class="s">"Result"</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nf">expensiveFunction</span><span class="p">()</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+   <span class="nf">print</span><span class="p">(</span><span class="s">"The result: </span><span class="se">\(</span><span class="n">result</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>If you want to wait until the future completes, you can use the <code>!&gt;</code> prefix operator:</p>
+
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="o">!&gt;</span><span class="nf">expensiveFunction</span><span class="p">()</span>
+</code></pre>
+
+<p>If you need error handling, use a <code><a href="../Classes/ThrowingFuture.html">ThrowingFuture</a></code>.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FC4When6Future5awaiturFGS0_q__FT_q_"></a>
-                    <a name="//apple_ref/swift/Method/await()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC4When6Future5awaiturFGS0_q__FT_q_">await()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -93,8 +108,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Execute a given closure after the Future has copmleted.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">func</span> <span class="nf">then</span><span class="p">(</span><span class="nv">closure</span><span class="p">:</span> <span class="p">(</span><span class="kt">Wrapped</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -112,8 +135,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initialize a new future and execute the given closure. The closure is executed asynchronously on a special dispatch queue.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">execute</span> <span class="nv">closure</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Wrapped</span><span class="p">))</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -137,6 +168,14 @@
                       <div class="abstract">
                         <p>Undocumented</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">Wrapped</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

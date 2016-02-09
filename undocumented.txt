@@ -1,18 +1,5 @@
-Future.swift
-	public class Future&lt;Wrapped&gt;
-	public final class ThrowingFuture&lt;Wrapped&gt; : Future&lt;Wrapped&gt;
-	public class Future<Wrapped>
-	public func await() -> Wrapped
-	public final func then(closure: (Wrapped) -> ()) -> Self
-	public init(execute closure: () -> (Wrapped))
-	public final class ThrowingFuture<Wrapped> : Future<Wrapped>
-	public override func await() -> Wrapped
-	public func safeAwait() throws -> Wrapped
-	public init(executeThrowing closure: () throws -> (Wrapped))
-	public func onError(handler: (ErrorType) -> ()) -> Self
 Autoclosure.swift
 	public convenience init(@autoclosure(escaping) execute closure: () -> (Wrapped))
-	public convenience init(@autoclosure(escaping) executeThrowing closure: () throws -> (Wrapped))
 Operators.swift
 	public prefix func !><Wrapped> (input: Future<Wrapped>) -> Wrapped
 	public prefix func !><Wrapped> (input: ThrowingFuture<Wrapped>) throws -> Wrapped

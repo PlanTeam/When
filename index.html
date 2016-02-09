@@ -13,7 +13,7 @@
     <a title="  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (0% documented)</p>
+        <p><a href="index.html"> Docs</a> (86% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -30,7 +30,13 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Classes/Completer.html">Completer</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/Future.html">Future</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ThrowingCompleter.html">ThrowingCompleter</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/ThrowingFuture.html">ThrowingFuture</a>
@@ -41,10 +47,10 @@
             <a href="Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Functions.html#/s:ZF4Whenop2ngurFGCS_6Futureq__q_">!&gt;(_:)</a>
+                <a href="Functions/!&gt;(_:).html">!&gt;(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:ZF4Whenop2ngurFzGCS_14ThrowingFutureq__q_">!&gt;(_:)</a>
+                <a href="Functions/!&gt;(_:).html">!&gt;(_:)</a>
               </li>
             </ul>
           </li>
@@ -58,6 +64,8 @@
 
 <p>A small, lightweight library that adds something like async/await to Swift. When uses Grand Central Dispatch.</p>
 <a href='#usage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='usage'>Usage</h2>
+
+<p>Complete reference documentation is available <a href="http://planteam.github.io/When/">here</a>.</p>
 <a href='#await_operator_code_gt_code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='await_operator_code_gt_code'>await operator: <code>!&gt;</code></h3>
 
 <p>Because Swift does not allow us to implement custom keywords, When implements a prefix <code>!&gt;</code> operator
@@ -110,6 +118,17 @@ that does the same thing:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
+<a href='#code_completer_code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='code_completer_code'><code>Completer</code></h3>
+
+<p>When you need to hand out work to another function that uses a callback, you can use a <code>Completer</code>.</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">doSomething</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">completer</span> <span class="o">=</span> <span class="kt">Completer</span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">()</span>
+    <span class="nf">handOutWork</span><span class="p">(</span><span class="n">completer</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">completer</span><span class="o">.</span><span class="n">future</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The error-supporting counterpart of <code>Completer</code> is <code>ThrowingCompleter</code>. </p>
 <a href='#installing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installing'>Installing</h2>
 
 <p>Use the Swift Package Manager, Carthage or git submodules.</p>
