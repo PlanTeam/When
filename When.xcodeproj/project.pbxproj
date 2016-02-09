@@ -12,6 +12,7 @@
 		F2B9F6DC1C69EB81004383A9 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9F6DB1C69EB81004383A9 /* Future.swift */; };
 		F2B9F6DF1C6A2AF5004383A9 /* Autoclosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9F6DE1C6A2AF5004383A9 /* Autoclosure.swift */; };
 		F2B9F6E11C6A30AF004383A9 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9F6E01C6A30AF004383A9 /* Operators.swift */; };
+		F2B9F7051C6A660C004383A9 /* Completer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9F7041C6A660C004383A9 /* Completer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		F2B9F6E31C6A32C2004383A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Xcode/Info.plist; sourceTree = "<group>"; };
 		F2B9F6E41C6A32C2004383A9 /* TestInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TestInfo.plist; path = Xcode/TestInfo.plist; sourceTree = "<group>"; };
 		F2B9F6E71C6A3355004383A9 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		F2B9F7041C6A660C004383A9 /* Completer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Completer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				F2B9F6DB1C69EB81004383A9 /* Future.swift */,
 				F2B9F6DE1C6A2AF5004383A9 /* Autoclosure.swift */,
 				F2B9F6E01C6A30AF004383A9 /* Operators.swift */,
+				F2B9F7041C6A660C004383A9 /* Completer.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2B9F6DF1C6A2AF5004383A9 /* Autoclosure.swift in Sources */,
+				F2B9F7051C6A660C004383A9 /* Completer.swift in Sources */,
 				F2B9F6DC1C69EB81004383A9 /* Future.swift in Sources */,
 				F2B9F6E11C6A30AF004383A9 /* Operators.swift in Sources */,
 			);
@@ -402,6 +406,7 @@
 				F2B9F6D71C69EB70004383A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F2B9F6D81C69EB70004383A9 /* Build configuration list for PBXNativeTarget "WhenTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +415,7 @@
 				F2B9F6DA1C69EB70004383A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

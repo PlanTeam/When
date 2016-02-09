@@ -83,4 +83,14 @@ class WhenTests: XCTestCase {
         }
     }
     
+    func testCompleter() {
+        let expectation = expectationWithDescription("Completer completes future")
+        
+        let completer = Completer<Void>()
+        completer.future.then { expectation.fulfill() }
+        completer.complete()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
 }

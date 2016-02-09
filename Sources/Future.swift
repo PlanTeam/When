@@ -17,7 +17,7 @@ public class Future<Wrapped> {
     private final var value: Wrapped?
     private final var closures = [FutureCallback]()
     
-    private final func complete(value: Wrapped) {
+    internal final func complete(value: Wrapped) {
         dispatch_sync(futureManipulationQueue) { self.value = value }
         for c in closures {
             c(value)
@@ -46,7 +46,7 @@ public class Future<Wrapped> {
         }
     }
     
-    private init() {}
+    internal init() {}
 }
 
 public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
@@ -94,13 +94,15 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
         return self
     }
     
-    private func handleError(error: ErrorType) {
+    internal func handleError(error: ErrorType) {
         dispatch_sync(futureManipulationQueue) { self.error = error }
         
         for c in errorClosures {
             c(error)
         }
     }
+    
+    internal override init() { super.init() }
     
     deinit {
         if let error = error where errorClosures.count == 0 {
