@@ -21,6 +21,10 @@ class WhenTests: XCTestCase {
         super.tearDown()
     }
     
+    enum TestError : ErrorType {
+        case Henk, Fred, Sap, Saus
+    }
+    
     func testVoidFutures() {
         let executionExpectation = expectationWithDescription("Futures get executed")
         let thenExpectation = expectationWithDescription("Future.then() works correctly")
@@ -37,10 +41,6 @@ class WhenTests: XCTestCase {
     }
     
     func testThrowingFutures() {
-        enum TestError : ErrorType {
-            case Henk, Fred, Sap, Saus
-        }
-        
         func testFunc() -> ThrowingFuture<Void> {
             return ThrowingFuture<Void> {
                 throw TestError.Sap
@@ -64,6 +64,23 @@ class WhenTests: XCTestCase {
         
         // This should crash:
 //        testFunc().then { XCTFail() }
+    }
+    
+    func testOperators() {
+        func throwingTestFunc() -> ThrowingFuture<Int> {
+            return ThrowingFuture {
+                throw TestError.Henk
+            }
+        }
+        
+        do {
+            let _ = try !>throwingTestFunc()
+            XCTFail()
+        } catch TestError.Henk {
+            
+        } catch {
+            XCTFail()
+        }
     }
     
 }

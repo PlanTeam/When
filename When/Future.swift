@@ -46,11 +46,6 @@ public class Future<Wrapped> {
         }
     }
     
-    // needed because the compiler gets mad when we try to use the trailing closure syntax if we only have an initializer accepting @autoclosure(escaping)
-    public convenience init(@autoclosure(escaping) execute closure: () -> (Wrapped)) {
-        self.init(execute: closure)
-    }
-    
     private init() {}
 }
 
@@ -65,6 +60,8 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
     }
     
     public func safeAwait() throws -> Wrapped {
+        errorClosures.append({_ in})
+        
         repeat {
             if let value = value {
                 return value
@@ -86,10 +83,6 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
         }
     }
     
-    public convenience init(@autoclosure(escaping) executeThrowing closure: () throws -> (Wrapped)) {
-        self.init(executeThrowing: closure)
-    }
-    
     public func onError(handler: (ErrorType) -> ()) -> Self {
         dispatch_async(futureManipulationQueue) {
             if let error = self.error {
@@ -104,22 +97,16 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
     private func handleError(error: ErrorType) {
         dispatch_sync(futureManipulationQueue) { self.error = error }
         
-        guard errorClosures.count > 0 else {
-            try! { throw error }()
-            return
-        }
-        
         for c in errorClosures {
             c(error)
         }
     }
-}
-
-prefix operator !> {}
-prefix func !><Wrapped> (input: Future<Wrapped>) -> Wrapped {
-    return input.await()
-}
-
-prefix func !><Wrapped> (input: ThrowingFuture<Wrapped>) throws -> Wrapped {
-    return try input.safeAwait()
+    
+    deinit {
+        if let error = error where errorClosures.count == 0 {
+            // Crash if an error wasn't handled!
+            print("An error was not handled in a ThrowingFuture of type \(self.dynamicType). You should provide error handling logic.")
+            try! { throw error }()
+        }
+    }
 }

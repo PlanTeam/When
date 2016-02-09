@@ -10,6 +10,8 @@
 		F2B9F6CC1C69EB70004383A9 /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B9F6C11C69EB70004383A9 /* When.framework */; };
 		F2B9F6D11C69EB70004383A9 /* WhenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9F6D01C69EB70004383A9 /* WhenTests.swift */; };
 		F2B9F6DC1C69EB81004383A9 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9F6DB1C69EB81004383A9 /* Future.swift */; };
+		F2B9F6DF1C6A2AF5004383A9 /* Autoclosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9F6DE1C6A2AF5004383A9 /* Autoclosure.swift */; };
+		F2B9F6E11C6A30AF004383A9 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9F6E01C6A30AF004383A9 /* Operators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +32,8 @@
 		F2B9F6D21C69EB70004383A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2B9F6DB1C69EB81004383A9 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		F2B9F6DD1C6A1B53004383A9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F2B9F6DE1C6A2AF5004383A9 /* Autoclosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autoclosure.swift; sourceTree = "<group>"; };
+		F2B9F6E01C6A30AF004383A9 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 			children = (
 				F2B9F6C61C69EB70004383A9 /* Info.plist */,
 				F2B9F6DB1C69EB81004383A9 /* Future.swift */,
+				F2B9F6DE1C6A2AF5004383A9 /* Autoclosure.swift */,
+				F2B9F6E01C6A30AF004383A9 /* Operators.swift */,
 			);
 			path = When;
 			sourceTree = "<group>";
@@ -195,7 +201,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2B9F6DF1C6A2AF5004383A9 /* Autoclosure.swift in Sources */,
 				F2B9F6DC1C69EB81004383A9 /* Future.swift in Sources */,
+				F2B9F6E11C6A30AF004383A9 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
