@@ -4,7 +4,7 @@ A small, lightweight library that adds something like async/await to Swift. When
 
 ## Usage
 
-### `await` operator
+### await operator: `!>`
 
 Because Swift does not allow us to implement custom keywords, When implements a prefix `!>` operator
 that does the same thing:
