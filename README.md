@@ -4,6 +4,8 @@ A small, lightweight library that adds something like async/await to Swift. When
 
 ## Usage
 
+Complete reference documentation is available [here](http://planteam.github.io/When/).
+
 ### await operator: `!>`
 
 Because Swift does not allow us to implement custom keywords, When implements a prefix `!>` operator
