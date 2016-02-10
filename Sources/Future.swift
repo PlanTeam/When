@@ -44,6 +44,10 @@ public class Future<Wrapped> {
     private final var value: Wrapped?
     private final var closures = [FutureCallback]()
     
+    #if WHEN_DEBUG_MODE
+    internal var stacktrace: [String] = NSThread.callStackSymbols()
+    #endif
+    
     internal final func complete(value: Wrapped) {
         dispatch_sync(futureManipulationQueue) { self.value = value }
         for c in closures {
@@ -52,7 +56,7 @@ public class Future<Wrapped> {
     }
     
     internal func await() -> Wrapped {
-        while value == nil { usleep(1) }
+        while value == nil { usleep(100) }
         return value!
     }
     
@@ -74,7 +78,7 @@ public class Future<Wrapped> {
             self.complete(closure())
         }
     }
-    
+
     internal init() {}
 }
 
@@ -116,7 +120,7 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
             } else if let error = error {
                 throw error
             }
-            usleep(1)
+            usleep(100)
         } while true
     }
     
@@ -157,7 +161,18 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
     deinit {
         if let error = error where errorClosures.count == 0 {
             // Crash if an error wasn't handled!
-            print("An error was not handled in a ThrowingFuture of type \(self.dynamicType). You should provide error handling logic.")
+            print("An error was not handled in a \(self.dynamicType). You should provide error handling logic.")
+            
+            #if WHEN_DEBUG_MODE
+                print("Stack trace for the error future:")
+                for trace in stacktrace {
+                    print("      \(trace)")
+                }
+                print("[end of stack trace]")
+            #endif
+            
+            print("The error will be rethrown, which will probably cause a crash.")
+            
             try! { throw error }()
         }
     }

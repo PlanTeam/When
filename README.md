@@ -85,6 +85,10 @@ func doSomething() -> Future<Void> {
 
 The error-supporting counterpart of `Completer` is `ThrowingCompleter`. 
 
+### Debugging
+
+Provide the WHEN_DEBUG_MODE compile time 
+
 ## Installing
 
 Use the Swift Package Manager, Carthage or git submodules.

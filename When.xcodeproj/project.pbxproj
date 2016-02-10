@@ -339,6 +339,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Xcode/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D WHEN_DEBUG_MODE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PlanTeam.When;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
