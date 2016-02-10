@@ -8,8 +8,8 @@
 
 import Foundation
 
-private var backgroundExecutionQueue = dispatch_queue_create("planteam.when.backgroundexecution", DISPATCH_QUEUE_CONCURRENT)
-private var futureManipulationQueue = dispatch_queue_create("planteam.when.futuremanipulation", DISPATCH_QUEUE_SERIAL)
+internal var backgroundExecutionQueue = dispatch_queue_create("planteam.when.backgroundexecution", DISPATCH_QUEUE_CONCURRENT)
+internal var futureManipulationQueue = dispatch_queue_create("planteam.when.futuremanipulation", DISPATCH_QUEUE_SERIAL)
 
 /**
  Use a future for doing work asynchronously and returning a result.
