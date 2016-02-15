@@ -115,11 +115,22 @@ public final class ThrowingFuture<Wrapped> : Future<Wrapped> {
         errorClosures.append({_ in})
         
         repeat {
-            if let value = value {
-                return value
-            } else if let error = error {
-                throw error
+            var mayVal: Wrapped?
+            var mayErr: ErrorType?
+            dispatch_sync(futureManipulationQueue) {
+                if let value = self.value {
+                    mayVal = value
+                } else if let error = self.error {
+                    mayErr = error
+                }
             }
+            
+            if let val = mayVal {
+                return val
+            } else if let err = mayErr {
+                throw err
+            }
+            
             usleep(100)
         } while true
     }
